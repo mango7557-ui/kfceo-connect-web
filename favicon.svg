@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" role="img" aria-labelledby="title desc">
+  <title id="title">KFCEO 코리아프랜차이즈CEO교육과정</title>
+  <desc id="desc">제공된 로고 이미지를 참고하여 벡터로 재구성한 원형 KFCEO 심볼</desc>
+  <defs>
+    <path id="top" d="M 49,180 A 131,131 0 0,1 311,180"/>
+    <path id="bottom" d="M 29,180 A 151,151 0 0,0 331,180"/>
+  </defs>
+  <circle cx="180" cy="180" r="176" fill="#fff" stroke="#45568f" stroke-width="3"/>
+  <circle cx="180" cy="180" r="114" fill="none" stroke="#45568f" stroke-width="3"/>
+  <g fill="#45568f">
+    <text font-family="Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" textLength="365" lengthAdjust="spacingAndGlyphs"><textPath href="#top" startOffset="50%">KOREA FRANCHISE CEO ACADEMY</textPath></text>
+    <text font-family="Noto Sans KR, Malgun Gothic, sans-serif" font-size="29" font-weight="750" text-anchor="middle" textLength="357" lengthAdjust="spacingAndGlyphs"><textPath href="#bottom" startOffset="50%">K프랜차이즈CEO교육과정</textPath></text>
+    <circle cx="32" cy="180" r="6"/>
+    <circle cx="328" cy="180" r="6"/>
+    <text x="180" y="200" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-weight="900" font-size="58" textLength="195" lengthAdjust="spacingAndGlyphs">KFCEO</text>
+  </g>
+</svg>
