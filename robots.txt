@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Member-only and operator areas: no value in the index
+Disallow: /kfceo-connect-web/my
+Disallow: /kfceo-connect-web/admin
+Disallow: /kfceo-connect-web/cohort-admin
+Disallow: /kfceo-connect-web/cohort-join
+Disallow: /kfceo-connect-web/minihompy
+
+Sitemap: https://mango7557-ui.github.io/kfceo-connect-web/sitemap.xml
