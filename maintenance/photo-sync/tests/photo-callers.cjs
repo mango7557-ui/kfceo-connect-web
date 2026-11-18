@@ -170,8 +170,33 @@ async function main() {
     assert.ok(messages.some(message => message.includes(success ? '성공 1명, 실패 0명' : '성공 0명, 실패 1명')));
   }
   assert.ok(output.includes('return{id:ae.id,directoryId:ae.directoryId||null}'), 'signup returns actual identifiers');
-  assert.ok(output.includes('kfJoined?.directoryId||kfJoined?.id'), 'signup photo uses explicit identifiers');
-  assert.ok(output.includes('가입은 완료되었지만 사진을 서버에 저장하지 못했습니다.'), 'signup and photo save failures are distinct');
+  if (output.includes('async function jt(xe) {')) {
+    const start = output.indexOf('async function jt(xe) {');
+    const submitCode = output.slice(start, output.indexOf('\n}', start) + 2);
+    for (const directoryId of [null, 'alumni-5-3']) for (const success of [false, true]) {
+      const writes = [], errors = [], destinations = [];
+      class PhotoFile { constructor() { this.size = 1; } }
+      const account = { id: 'new-signup-uuid', directoryId };
+      const submit = vm.runInNewContext(`(${submitCode})`, {
+        kfCardSubmitLock: { current: false }, Xe: false, kfCardBusy: false,
+        Ke: text => errors.push(text), p: '5', Qy: [5], u: null,
+        kfCardJoined: { current: account }, je: 'password', Ie: 'password', Ee() {},
+        File: PhotoFile, FormData: class { get() { return new PhotoFile(); } },
+        m: async () => 'confirmed-profile-photo', ue: '업종', Se: '', L: '', Te: '', Oe: '',
+        kfPersistRegistrationCard: async () => {}, kfCard: undefined,
+        kfPhotoConfirm: async (...args) => { writes.push(args); return success; },
+        r() {}, s: cohort => destinations.push(cohort)
+      });
+      await submit({ preventDefault() {}, currentTarget: {} });
+      assert.equal(writes[0][0], directoryId || account.id, 'signup photo targets explicit directory ID or actual account ID');
+      assert.equal(writes[0][1], 'confirmed-profile-photo');
+      assert.equal(destinations.length, success ? 1 : 0, 'failed profile save does not finish signup UI');
+      if (!success) assert.match(errors.at(-1), /가입은 완료되었지만 프로필 사진을 서버에 저장하지 못했습니다/);
+    }
+  } else {
+    assert.ok(output.includes('kfJoined?.directoryId||kfJoined?.id'), 'signup photo uses explicit identifiers');
+    assert.ok(output.includes('가입은 완료되었지만 사진을 서버에 저장하지 못했습니다.'), 'signup and photo save failures are distinct');
+  }
   const signupCode = extract('async signup(f,j=!1){', ',async login(', 0);
   let accountState = { accounts: [{ id: 'alumni-5-3', name: '동명이인', cohort: '5', email: 'existing@example.test' }], history: [] };
   let serial = 0;
